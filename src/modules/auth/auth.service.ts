@@ -18,6 +18,7 @@ import { MailService } from 'src/services/mail.service';
 import { VerifyPasswordResetDto } from './dtos/verifyPasswordResetLink.dto';
 import { ResetPasswordDto } from './dtos/resetPassword.dto';
 import { LoginDto } from './dtos/login.dto';
+import { Role } from './enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -81,7 +82,7 @@ export class AuthService {
 
     user.isVerified = true;
     await user.save();
-    const token = await this.generateUserToken(user.email, user.id);
+    const token = await this.generateUserToken(user.email, user.id, user.role);
     return this.utilService.successResponseHandler(
       'Email verified successfully',
       HttpStatus.OK,
@@ -160,7 +161,7 @@ export class AuthService {
       };
       throw new UnauthorizedException(additionalInfo);
     }
-    const token = await this.generateUserToken(user.email, user.id);
+    const token = await this.generateUserToken(user.email, user.id, user.role);
     return this.utilService.successResponseHandler(
       'Login Successfully',
       HttpStatus.OK,
@@ -187,10 +188,11 @@ export class AuthService {
     return user;
   }
 
-  async generateUserToken(email: string, id: string) {
+  async generateUserToken(email: string, id: string, role: Role) {
     const accessToken = this.jwtService.sign({
       userId: id,
       email: email,
+      role,
     });
     return { accessToken };
   }

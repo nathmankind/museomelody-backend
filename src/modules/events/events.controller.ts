@@ -7,16 +7,22 @@ import {
   Patch,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateEventDto } from './dtos/createEvent.dto';
+import { Roles } from 'src/decorators/roles.decorator';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Role } from '../auth/enums/role.enum';
 
 @ApiTags('Events')
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
+  @Roles(Role.ADMIN, Role.MEMBER)
+  @UseGuards(RolesGuard)
   @Post('create')
   create(@Body() createEventDto: CreateEventDto) {
     return this.eventsService.createEvent(createEventDto);

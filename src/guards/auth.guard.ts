@@ -9,7 +9,6 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { Observable } from 'rxjs';
 import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
 import { ExtendApiReq } from 'src/interfaces/common';
 import { AuthService } from 'src/modules/auth/auth.service';
@@ -22,9 +21,7 @@ export class JwtAuthGuard implements CanActivate {
     private authService: AuthService,
   ) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: ExtendApiReq = context.switchToHttp().getRequest();
 
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -35,16 +32,24 @@ export class JwtAuthGuard implements CanActivate {
     if (isPublic) return true;
 
     const token = this.extractTokenFromHeader(request);
+
     if (!token) {
       throw new UnauthorizedException();
     }
+
     try {
-      const payload = this.jwtService.verify(token); //verify the token and decode the token
-      const user = this.authService.findUserById(payload.userId);
+      const payload = this.jwtService.verify(token); // verify and decode the token
+      const user = await this.authService.findUserById(payload.userId); // make async
+
       if (!user) {
         throw new NotFoundException('User not found');
       }
-      request.user = payload;
+
+      request.user = {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+      };
     } catch (error) {
       Logger.error(error.message);
       throw new UnauthorizedException();
@@ -53,7 +58,7 @@ export class JwtAuthGuard implements CanActivate {
     return true;
   }
 
-  //method to extract token from the header
+  // Method to extract token from the header
   private extractTokenFromHeader(request: Request): string | undefined {
     return request.headers.authorization?.split(' ')[1];
   }

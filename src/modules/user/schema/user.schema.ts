@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Types } from 'mongoose';
+import { Role } from 'src/modules/auth/enums/role.enum';
 import { commonSchemaSettings } from 'src/utils/helpers';
 
 @Schema({ versionKey: false, timestamps: true })
@@ -13,8 +14,8 @@ export class User extends Document {
   @Prop({ required: true })
   password: string;
 
-  // @Prop({ required: true, type: SchemaTypes.ObjectId })
-  // roleId: Types.ObjectId;
+  @Prop({ required: true, enum: Role, default: Role.USER })
+  role: Role;
 
   @Prop({ type: Boolean })
   isVerified: boolean;

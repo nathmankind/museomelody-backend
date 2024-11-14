@@ -6,10 +6,14 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ExhibitionsService } from './exhibitions.service';
 import { CreateExhibitionDto } from './dtos/createExhibition.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
+import { RolesGuard } from 'src/guards/roles.guard';
 
 @ApiTags('Exhibitions')
 @Controller('exhibitions')
@@ -39,6 +43,8 @@ export class ExhibitionsController {
     return this.exhibitionsService.updateExhibition(id, updateEventDto);
   }
 
+  @Roles(Role.ADMIN, Role.MEMBER)
+  @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteExhibition(@Param('id') id: string) {
     return this.exhibitionsService.exhibitionDelete(id);
