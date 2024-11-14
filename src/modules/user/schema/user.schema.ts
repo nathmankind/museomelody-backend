@@ -13,8 +13,8 @@ export class User extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true, type: SchemaTypes.ObjectId })
-  roleId: Types.ObjectId;
+  // @Prop({ required: true, type: SchemaTypes.ObjectId })
+  // roleId: Types.ObjectId;
 
   @Prop({ type: Boolean })
   isVerified: boolean;
