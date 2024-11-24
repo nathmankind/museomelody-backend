@@ -40,4 +40,26 @@ export class MailService {
     };
     await this.transporter.sendMail(mailOptions);
   }
+
+  async sendEventRegistrationEmail(
+    to: string,
+    eventName: string,
+    eventDate: string,
+    username: string,
+  ) {
+    const mailOptions = {
+      from: 'Museomelody',
+      to: to,
+      subject: 'Event Registration successful',
+      html: `
+      <div>
+        <p>Hello ${username},</p>
+        <p>You have successfully registered for the event: <b>${eventName}</b></p>
+        <p>Event Date: ${eventDate}</p>
+        <p>Thank you for registering!</p>
+      </div>
+      `,
+    };
+    await this.transporter.sendMail(mailOptions);
+  }
 }

@@ -10,6 +10,9 @@ import { isValidObjectId, Model } from 'mongoose';
 import { CreateEventDto } from './dtos/createEvent.dto';
 import { UtilService } from 'src/services/utils.service';
 import { RegisterEventDto } from './dtos/registerEvent.dto';
+import { TokenPayload } from 'src/interfaces/common';
+import { MailService } from 'src/services/mail.service';
+import { SharedService } from '../shared/shared.service';
 
 @Injectable()
 export class EventsService {
@@ -19,6 +22,8 @@ export class EventsService {
 
     //services
     private utilService: UtilService,
+    private mailService: MailService,
+    private sharedService: SharedService,
   ) {}
 
   async createEvent(event: CreateEventDto) {
@@ -78,7 +83,11 @@ export class EventsService {
     );
   }
 
-  async userRegisterEvent(registerEventDto: RegisterEventDto, userId: string) {
+  async userRegisterEvent(
+    registerEventDto: RegisterEventDto,
+    user: TokenPayload,
+  ) {
+    const { userId, email } = user;
     const event = await this.getEventById(registerEventDto.eventId);
     if (!event) {
       throw new NotFoundException('Event not found');
@@ -94,11 +103,18 @@ export class EventsService {
 
     const details = {
       ...registerEventDto,
+      email,
       userId,
     };
 
     event.registeredUsers.push(details);
     await event.save();
+    this.mailService.sendEventRegistrationEmail(
+      email,
+      event.name,
+      event.date,
+      registerEventDto.fullname,
+    );
     return this.utilService.successResponseHandler(
       'User register successfully',
       HttpStatus.OK,
