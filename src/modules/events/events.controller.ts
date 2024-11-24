@@ -61,9 +61,6 @@ export class EventsController {
     @Body() registerEventDto: RegisterEventDto,
     @Req() request: ExtendApiReq,
   ) {
-    return this.eventsService.userRegisterEvent(
-      registerEventDto,
-      request.user.userId,
-    );
+    return this.eventsService.userRegisterEvent(registerEventDto, request.user);
   }
 }
