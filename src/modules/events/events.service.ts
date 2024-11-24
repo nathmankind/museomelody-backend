@@ -1,9 +1,15 @@
-import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Event } from './schema/event.schema';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateEventDto } from './dtos/createEvent.dto';
 import { UtilService } from 'src/services/utils.service';
+import { RegisterEventDto } from './dtos/registerEvent.dto';
 
 @Injectable()
 export class EventsService {
@@ -37,7 +43,7 @@ export class EventsService {
   async eventDetails(id: string) {
     const event = await this.getEventById(id);
     if (!event) {
-      throw new Error('Event not found');
+      throw new NotFoundException('Event not found');
     }
     return this.utilService.successResponseHandler(
       'Event details',
@@ -49,7 +55,7 @@ export class EventsService {
   async updateEvent(id: string, updateDetails: CreateEventDto) {
     const event = await this.getEventById(id);
     if (!event) {
-      throw new Error('Event not found');
+      throw new NotFoundException('Event not found');
     }
 
     await this.EventModel.findByIdAndUpdate(id, updateDetails);
@@ -62,12 +68,39 @@ export class EventsService {
   async eventDelete(id: string) {
     const event = await this.getEventById(id);
     if (!event) {
-      throw new Error('Event not found');
+      throw new NotFoundException('Event not found');
     }
 
     await this.EventModel.findByIdAndDelete(id);
     return this.utilService.successResponseHandler(
       'Event deleted successfully',
+      HttpStatus.OK,
+    );
+  }
+
+  async userRegisterEvent(registerEventDto: RegisterEventDto, userId: string) {
+    const event = await this.getEventById(registerEventDto.eventId);
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    const isRegistered = event.registeredUsers.find(
+      (user) => user.userId === userId,
+    );
+
+    if (isRegistered) {
+      throw new BadRequestException('User already registered');
+    }
+
+    const details = {
+      ...registerEventDto,
+      userId,
+    };
+
+    event.registeredUsers.push(details);
+    await event.save();
+    return this.utilService.successResponseHandler(
+      'User register successfully',
       HttpStatus.OK,
     );
   }

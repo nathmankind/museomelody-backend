@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsString,
   Matches,
   MinLength,
 } from 'class-validator';
+import { Role } from '../enums/role.enum';
 
 export class RegisterDto {
   @IsString()
@@ -17,6 +19,12 @@ export class RegisterDto {
   @IsNotEmpty()
   @ApiProperty()
   username: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  @IsEnum(Role)
+  role: string;
 
   @IsString()
   @MinLength(8)
