@@ -1,5 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateEventDto {
   @IsString()
@@ -25,4 +30,14 @@ export class CreateEventDto {
   @IsBoolean()
   @ApiProperty()
   isVirtual: boolean;
+
+  @IsString()
+  @ApiProperty()
+  @IsOptional()
+  mediaUrl: string;
+
+  @IsString()
+  @ApiProperty()
+  @IsOptional()
+  imageUrl: string;
 }

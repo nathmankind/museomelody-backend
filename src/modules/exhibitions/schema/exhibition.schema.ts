@@ -15,6 +15,12 @@ export class Exhibition extends Document {
 
   @Prop({ required: true })
   description: string;
+
+  @Prop()
+  imageUrl: string;
+
+  @Prop()
+  mediaUrl: string;
 }
 
 const ExhibitionSchema = SchemaFactory.createForClass(Event);

@@ -47,7 +47,6 @@ export class AuthService {
     const hashPassword = await bcrypt.hash(password, 10);
     await this.UserModel.create({
       ...registerDto,
-      role: 'user',
       isVerified: false,
       password: hashPassword,
     });

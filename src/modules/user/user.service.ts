@@ -26,6 +26,15 @@ export class UserService {
     );
   }
 
+  async getAllUser() {
+    const users = await this.UserModel.find().select(['-password']);
+    return this.utilService.successResponseHandler(
+      'Users fetched successfully',
+      HttpStatus.OK,
+      users,
+    );
+  }
+
   //MISC
   async findUserById(id: string) {
     if (!isValidObjectId(id)) {

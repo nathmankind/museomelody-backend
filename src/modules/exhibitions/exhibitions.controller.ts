@@ -14,6 +14,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
 import { RolesGuard } from 'src/guards/roles.guard';
+import { Public } from 'src/decorators/public.decorator';
 
 @ApiTags('Exhibitions')
 @Controller('exhibitions')
@@ -25,6 +26,7 @@ export class ExhibitionsController {
     return this.exhibitionsService.createExhibition(createEventDto);
   }
 
+  @Public()
   @Get('/')
   getAllExhibitions() {
     return this.exhibitionsService.getAllExhibition();
