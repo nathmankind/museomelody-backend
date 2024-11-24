@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors();
   const loggerInstance = app.get(Logger);
   app.useGlobalFilters(new HttpExceptionFilter(loggerInstance));
 
