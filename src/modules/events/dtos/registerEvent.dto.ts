@@ -2,10 +2,20 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class RegisterEventDto {
+  // @IsString()
+  // @IsNotEmpty()
+  // @ApiProperty()
+  // fullname: string;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  fullname: string;
+  firstname: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  lastname: string;
 
   @IsString()
   @IsNotEmpty()

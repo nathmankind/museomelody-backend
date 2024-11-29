@@ -4,8 +4,14 @@ import { commonSchemaSettings } from 'src/utils/helpers';
 
 @Schema()
 class RegisterUsers {
+  // @Prop({ required: true })
+  // fullname: string;
+
   @Prop({ required: true })
-  fullname: string;
+  firstname: string;
+
+  @Prop({ required: true })
+  lastname: string;
 
   @Prop({ required: true })
   address: string;

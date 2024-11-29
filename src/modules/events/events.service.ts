@@ -37,7 +37,7 @@ export class EventsService {
   }
 
   async getAllEvents() {
-    const events = await this.EventModel.find();
+    const events = await this.EventModel.find().sort({ createdAt: -1 });
     return this.utilService.successResponseHandler(
       'Events fetched successfully',
       HttpStatus.OK,
@@ -113,7 +113,8 @@ export class EventsService {
       email,
       event.name,
       event.date,
-      registerEventDto.fullname,
+      `${registerEventDto.firstname} ${registerEventDto.lastname}`,
+      // registerEventDto.fullname,
     );
     return this.utilService.successResponseHandler(
       'User register successfully',

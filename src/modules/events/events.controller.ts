@@ -38,8 +38,19 @@ export class EventsController {
     return this.eventsService.getAllEvents();
   }
 
+  @Get('/admin')
+  getAllEventsByAdmin() {
+    return this.eventsService.getAllEvents();
+  }
+
+  @Public()
   @Get('/:id')
   getEventDetails(@Param('id') id: string) {
+    return this.eventsService.eventDetails(id);
+  }
+
+  @Get('/admin/:id')
+  getEventDetailsByAdmin(@Param('id') id: string) {
     return this.eventsService.eventDetails(id);
   }
 
