@@ -9,16 +9,16 @@ import { User } from '../user/schema/user.schema';
 import { isValidObjectId, Model } from 'mongoose';
 import { RegisterDto } from './dtos/register.dto';
 import * as bcrypt from 'bcrypt';
-import { UtilService } from 'src/services/utils.service';
 import { SharedService } from '../shared/shared.service';
 import { VerifyEmailDto } from './dtos/verifyEmail.dto';
 import { JwtService } from '@nestjs/jwt';
 import { ForgotPasswordDto } from './dtos/forgotPassword.dto';
-import { MailService } from 'src/services/mail.service';
 import { VerifyPasswordResetDto } from './dtos/verifyPasswordResetLink.dto';
 import { ResetPasswordDto } from './dtos/resetPassword.dto';
 import { LoginDto } from './dtos/login.dto';
 import { Role } from './enums/role.enum';
+import { UtilService } from '../../services/utils.service';
+import { MailService } from '../../services/mail.service';
 
 @Injectable()
 export class AuthService {

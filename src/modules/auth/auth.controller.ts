@@ -7,7 +7,7 @@ import { ForgotPasswordDto } from './dtos/forgotPassword.dto';
 import { VerifyPasswordResetDto } from './dtos/verifyPasswordResetLink.dto';
 import { ResetPasswordDto } from './dtos/resetPassword.dto';
 import { LoginDto } from './dtos/login.dto';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from '../../decorators/public.decorator';
 
 @ApiTags('Auth')
 @Public()

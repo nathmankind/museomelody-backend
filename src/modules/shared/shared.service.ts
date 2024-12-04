@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UtilService } from 'src/services/utils.service';
-import { MailService } from 'src/services/mail.service';
+import { MailService } from '../../services/mail.service';
+import { UtilService } from '../../services/utils.service';
+
 
 @Injectable()
 export class SharedService {

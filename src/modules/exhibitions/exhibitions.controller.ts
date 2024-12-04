@@ -11,10 +11,10 @@ import {
 import { ExhibitionsService } from './exhibitions.service';
 import { CreateExhibitionDto } from './dtos/createExhibition.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
-import { RolesGuard } from 'src/guards/roles.guard';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from '../../decorators/public.decorator';
+import { RolesGuard } from '../../guards/roles.guard';
+import { Roles } from '../../decorators/roles.decorator';
 
 @ApiTags('Exhibitions')
 @Controller('exhibitions')

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { commonSchemaSettings } from 'src/utils/helpers';
+import { commonSchemaSettings } from '../../../utils/helpers';
 
 @Schema()
 class RegisterUsers {

@@ -8,11 +8,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Event } from './schema/event.schema';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateEventDto } from './dtos/createEvent.dto';
-import { UtilService } from 'src/services/utils.service';
 import { RegisterEventDto } from './dtos/registerEvent.dto';
-import { TokenPayload } from 'src/interfaces/common';
-import { MailService } from 'src/services/mail.service';
-import { SharedService } from '../shared/shared.service';
+import { TokenPayload } from '../../interfaces/common';
+import { MailService } from '../../services/mail.service';
+import { UtilService } from '../../services/utils.service';
 
 @Injectable()
 export class EventsService {
@@ -23,7 +22,6 @@ export class EventsService {
     //services
     private utilService: UtilService,
     private mailService: MailService,
-    private sharedService: SharedService,
   ) {}
 
   async createEvent(event: CreateEventDto) {
