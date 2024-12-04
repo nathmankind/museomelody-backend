@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Role } from 'src/modules/auth/enums/role.enum';
+import { Role } from '../modules/auth/enums/role.enum';
 
 export interface TokenPayload {
   userId: string;

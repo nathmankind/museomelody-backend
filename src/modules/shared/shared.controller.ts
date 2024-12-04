@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { SharedService } from './shared.service';
 import { SendOtpDto } from './dtos/sendOtp.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/decorators/public.decorator';
+import { Public } from '../../decorators/public.decorator';
 
 @ApiTags('Shared')
 @Public()

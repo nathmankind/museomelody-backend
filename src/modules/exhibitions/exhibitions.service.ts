@@ -1,9 +1,9 @@
 import { BadRequestException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { UtilService } from 'src/services/utils.service';
 import { Exhibition } from './schema/exhibition.schema';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateExhibitionDto } from './dtos/createExhibition.dto';
+import { UtilService } from '../../services/utils.service';
 
 @Injectable()
 export class ExhibitionsService {

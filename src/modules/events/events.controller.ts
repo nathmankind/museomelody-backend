@@ -13,12 +13,12 @@ import {
 import { EventsService } from './events.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateEventDto } from './dtos/createEvent.dto';
-import { Roles } from 'src/decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from '../auth/enums/role.enum';
-import { Public } from 'src/decorators/public.decorator';
 import { RegisterEventDto } from './dtos/registerEvent.dto';
-import { ExtendApiReq } from 'src/interfaces/common';
+import { Roles } from '../../decorators/roles.decorator';
+import { Public } from '../../decorators/public.decorator';
+import { RolesGuard } from '../../guards/roles.guard';
+import { ExtendApiReq } from '../../interfaces/common';
 
 @ApiTags('Events')
 @Controller('events')

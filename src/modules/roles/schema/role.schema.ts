@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Resource } from '../enum/resource.enum';
 import { Action } from '../enum/action.enum';
-import { commonSchemaSettings } from 'src/utils/helpers';
+import { commonSchemaSettings } from '../../../utils/helpers';
 
 @Schema()
 class Permission {

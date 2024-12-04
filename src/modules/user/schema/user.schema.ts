@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, SchemaTypes, Types } from 'mongoose';
-import { Role } from 'src/modules/auth/enums/role.enum';
-import { commonSchemaSettings } from 'src/utils/helpers';
+import { Document } from 'mongoose';
+import { Role } from '../../auth/enums/role.enum';
+import { commonSchemaSettings } from '../../../utils/helpers';
 
 @Schema({ versionKey: false, timestamps: true })
 export class User extends Document {
